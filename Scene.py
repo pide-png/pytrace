@@ -29,7 +29,7 @@ class Scene:
                 intersected_objects.append(obj)
         try:
             closest_object = sorted(intersected_objects, key=(lambda obj: obj.intersect(image_point, self.camera)))[0]
-            return closest_object.get_color(self.camera, image_point, self.ambient, self.lights, self.hitables)
+            return closest_object.get_color(self.camera, image_point, self.ambient, self.lights, self.hitables, )
         except IndexError:
             return np.array([0, 0, 0])
 
