@@ -2,11 +2,10 @@ from utils import *
 
 
 class Sphere:
-    def __init__(self, centre, radius, material, _id):
+    def __init__(self, centre, radius, material):
         self.centre = centre
         self.radius = radius
         self.material = material
-        self.id = _id
 
     def intersect(self, direction, origin):
         a = np.linalg.norm(direction) ** 2

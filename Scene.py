@@ -4,7 +4,6 @@ from utils import *
 import beepy
 
 
-# noinspection DuplicatedCode
 class Scene:
     def __init__(self, camera, width, height, image_plane, antialiasing, ambient):
         self.camera = camera
