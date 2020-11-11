@@ -12,10 +12,9 @@ class BlinnPhongMaterial(Material):
         illumination += self.color["ambient"] * ambient
         for light in lights:
             light_vector = normalize(light.position - intersection)
-            if np.dot(light_vector, surface_normal) < 0:
-                continue
-            illumination += self.color["diffuse"] * light.diffuse * np.dot(light_vector, surface_normal)
-            reflectance = normalize(2 * np.dot(surface_normal, light_vector) * surface_normal - light_vector)
-            view = normalize(intersection - camera)
-            illumination += self.color["specular"] * light.specular * np.dot(view, reflectance) ** self.color["shininess"]
+            if np.dot(light_vector, surface_normal) >= 0:
+                illumination += self.color["diffuse"] * light.diffuse * np.dot(light_vector, surface_normal)
+                reflectance = normalize(2 * np.dot(surface_normal, light_vector) * surface_normal - light_vector)
+                view = normalize(intersection - camera)
+                illumination += self.color["specular"] * light.specular * np.dot(view, reflectance) ** self.color["shininess"]
         return illumination
