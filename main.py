@@ -25,6 +25,6 @@ scene.add_hitable(Sphere(centre=np.array([0, 0, 2]), radius=0.7, material=BlinnP
 })))
 
 
-scene.add_light(Light(position=np.array([0, 5, -3]), diffuse=np.array([1, 1, 1]), specular=np.array([1, 1, 1])))
+scene.add_light(Light(position=np.array([0, 0, -3]), diffuse=np.array([1, 1, 1]), specular=np.array([1, 1, 1])))
 
 scene.render("output.png", 3)
