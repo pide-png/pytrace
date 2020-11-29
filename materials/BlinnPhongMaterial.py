@@ -14,7 +14,8 @@ class BlinnPhongMaterial(Material):
             light_vector = normalize(light.position - intersection)
             if np.dot(light_vector, surface_normal) >= 0:
                 illumination += self.color["diffuse"] * light.diffuse * np.dot(light_vector, surface_normal)
-                reflectance = normalize(2 * np.dot(surface_normal, light_vector) * surface_normal - light_vector)
-                view = normalize(intersection - camera)
-                illumination += self.color["specular"] * light.specular * np.dot(view, reflectance) ** self.color["shininess"]
+
+                camera_vector = normalize(camera - intersection)
+                illumination += self.color["specular"] * light.diffuse * np.dot(surface_normal, normalize(light_vector + camera_vector)) ** (self.color["shininess"] / 4)
+
         return illumination
