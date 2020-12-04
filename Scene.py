@@ -5,7 +5,7 @@ import beepy
 
 
 class Scene:
-    def __init__(self, camera, width, height, image_plane, antialiasing, ambient):
+    def __init__(self, camera, width, height, image_plane, antialiasing, ambient, max_reflections):
         self.camera = camera
         self.width = width
         self.height = height
@@ -14,6 +14,7 @@ class Scene:
         self.hitables = []
         self.lights = []
         self.ambient = ambient
+        self.max_reflections = max_reflections
 
     # noinspection PyShadowingNames
     def ray_trace(self, alpha, beta):
@@ -22,15 +23,7 @@ class Scene:
             lerp(self.image_plane[2], self.image_plane[3], alpha),
             beta
         )  # take the bilinear interpolation to get the actual image point
-        intersected_objects = []
-        for obj in self.hitables:
-            if obj.intersect(image_point, self.camera):
-                intersected_objects.append(obj)
-        try:
-            closest_object = sorted(intersected_objects, key=(lambda obj: obj.intersect(image_point, self.camera)))[0]
-            return closest_object.get_color(self.camera, image_point, self.ambient, self.lights, self.hitables, )
-        except IndexError:
-            return np.array([0, 0, 0])
+        return ray_trace(origin=self.camera, direction=image_point, hitables=self.hitables, ambient=self.ambient, lights=self.lights, max_reflections=self.max_reflections)
 
     def add_hitable(self, hitable):
         self.hitables.append(hitable)

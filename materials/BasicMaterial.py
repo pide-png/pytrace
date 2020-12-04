@@ -5,5 +5,5 @@ class BasicMaterial(Material):
     def __init__(self, color):
         super().__init__(color)
 
-    def get_color(self, surface_normal, ambient, lights, intersection, camera, hitables):
+    def get_color(self, surface_normal, ambient, lights, intersection, camera, hitables, max_reflections):
         return self.color["color"]

@@ -22,7 +22,7 @@ class Sphere:
         intersection = lerp(camera, image_point, self.intersect(image_point, camera))
         return normalize(intersection - self.centre)
 
-    def get_color(self, camera, image_point, ambient, lights, hitables):
+    def get_color(self, camera, image_point, ambient, lights, hitables, max_reflections):
         intersection = lerp(camera, image_point, self.intersect(image_point, camera))
         return self.material.get_color(self.normal(camera, image_point), ambient, lights, intersection, camera,
-                                       hitables)
+                                       hitables, max_reflections=max_reflections)
