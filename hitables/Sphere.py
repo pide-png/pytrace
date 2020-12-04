@@ -2,11 +2,10 @@ from utils import *
 
 
 class Sphere:
-    def __init__(self, centre, radius, material, _id):
+    def __init__(self, centre, radius, material):
         self.centre = centre
         self.radius = radius
         self.material = material
-        self.id = _id
 
     def intersect(self, direction, origin):
         a = np.linalg.norm(direction) ** 2
@@ -23,6 +22,7 @@ class Sphere:
         intersection = lerp(camera, image_point, self.intersect(image_point, camera))
         return normalize(intersection - self.centre)
 
-    def get_color(self, camera, image_point, ambient, lights, hitables):
+    def get_color(self, camera, image_point, ambient, lights, hitables, max_reflections):
         intersection = lerp(camera, image_point, self.intersect(image_point, camera))
-        return self.material.get_color(self.normal(camera, image_point), ambient, lights, intersection, camera, hitables, self.id)
+        return self.material.get_color(self.normal(camera, image_point), ambient, lights, intersection, camera,
+                                       hitables, max_reflections=max_reflections)
