@@ -19,7 +19,7 @@ class BlinnPhongMaterial(Material):
                     is_shadowed = True
             if np.dot(shadow_ray, surface_normal) >= 0 and not is_shadowed:
                 illumination += self.color["diffuse"] * light.diffuse * np.dot(shadow_ray, surface_normal)
-                illumination += self.color["specular"] * light.diffuse * np.dot(surface_normal, normalize(shadow_ray + camera_vector)) ** (self.color["shininess"] / 4)
+                illumination += self.color["specular"] * light.specular * np.dot(surface_normal, normalize(shadow_ray + camera_vector)) ** (self.color["shininess"] / 4)
         try:
             illumination += self.color["reflection"] * ray_trace(origin=intersection, direction=camera_vector - 2 * np.dot(camera, surface_normal) * surface_normal, hitables=hitables, ambient=ambient, lights=lights, max_reflections=max_reflections)
         except TypeError:
